@@ -1,0 +1,158 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+}
+
+@media (prefers-color-scheme: dark) {
+  :root {
+  }
+}
+
+body {
+  color: rgb(var(--foreground-rgb));
+  background: #F8F8F8;
+}
+
+@layer utilities {
+  .text-balance {
+    text-wrap: balance;
+  }
+}
+
+.modal {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.5);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.modal-content {
+  background: white;
+  padding: 20px;
+  width: 300px;
+}
+
+.btn-save,
+.btn-cancel {
+  margin: 10px;
+  padding: 5px 10px;
+  border: none;
+  cursor: pointer;
+}
+
+.btn-save {
+  background-color: green;
+  color: white;
+}
+
+.btn-cancel {
+  background-color: red;
+  color: white;
+}
+
+.btn {
+  @apply rounded-none;
+  border-radius: 2px;
+}
+
+.card {
+  @apply rounded-none;
+  border: 1px solid #d4d4d4;
+  padding-top: 10px;
+}
+
+.modal{
+  @apply rounded-none;
+}
+
+.modal-botto{
+  @apply rounded-none;
+}
+/* Default: hidden */
+.mobile-only {
+  display: none;
+}
+
+.app {
+  width: 95%;
+  margin: auto;
+  padding-top: 50px;
+}
+
+/* Visible on mobile devices */
+@media (max-width: 768px) {
+  .mobile-only {
+    display: block;
+  }
+  .app {
+    padding-top: 100px;
+  }
+}
+
+.carousel-item-padding-40-px {
+  padding-right: 40px;
+}
+
+
+.arrow-button {
+  background: rgba(255, 255, 255, 0.8);
+  color: #333;
+  border: none;
+  cursor: pointer;
+  padding: 10px;
+  font-size: 24px;
+}
+
+.arrow-button:first-child {
+  position: absolute;
+  left: -50px; /* Adjust the position of the left arrow as per your design */
+}
+
+.arrow-button:last-child {
+  position: absolute;
+  right: -50px; /* Adjust the position of the right arrow as per your design */
+}
+
+
+
+.category-card {
+  width: 150px;
+  height: 200px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.image-container {
+  width: 100px;
+  height: 100px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.navbar{
+  margin-bottom: 0px;
+ 
+  position: relative;
+
+}
+
+
+
+/* Add this to your global styles or the relevant CSS file */
+.truncate-multiline {
+  display: -webkit-box;
+  -webkit-line-clamp: 2; /* number of lines to show */
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
