@@ -165,6 +165,20 @@ const InputProductsForm = () => {
             className="mt-1 p-2 block w-full border rounded-md shadow-sm focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
           />
         </div>
+
+        <div className="mb-4">
+          <label htmlFor="wholesaleQuantity" className="block text-sm font-medium text-black">Wholesale Quantity:</label>
+          <input
+            type="number"
+            id="wholesaleQuantity"
+            value={wholesaleQuantity}
+            onChange={(e) => setWholesaleQuantity(e.target.value)}
+            required
+            className="mt-1 p-2 block w-full border rounded-md shadow-sm focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
+          />
+        </div>
+
+
         <div className="mb-4">
           <label htmlFor="productPrice" className="block text-sm font-medium text-black">Product Price:</label>
           <input
@@ -187,18 +201,33 @@ const InputProductsForm = () => {
             className="mt-1 p-2 block w-full border rounded-md shadow-sm focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
           />
         </div>
+
         <div className="mb-4">
-          <label htmlFor="wholesaleQuantity" className="block text-sm font-medium text-black">Wholesale Quantity:</label>
-          <p className="text-xs text-gray-500">No of items in 1 carton.</p>
+          <label htmlFor="costPerUnit" className="block text-sm font-medium text-black">Cost Per Unit:</label>
           <input
             type="number"
-            id="wholesaleQuantity"
-            value={wholesaleQuantity}
-            onChange={(e) => setWholesaleQuantity(e.target.value)}
+            id="costPerUnit"
+            value={costPerUnit}
+            onChange={(e) => setCostPerUnit(e.target.value)}
             required
             className="mt-1 p-2 block w-full border rounded-md shadow-sm focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
           />
         </div>
+
+        <div className="mb-4">
+          <label htmlFor="storePrice" className="block text-sm font-medium text-black">Store Price:</label>
+          <input
+            type="number"
+            id="storePrice"
+            value={storePrice}
+            onChange={(e) => setStorePrice(e.target.value)}
+            required
+            className="mt-1 p-2 block w-full border rounded-md shadow-sm focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
+          />
+        </div>
+
+
+       
 
         <div className="mb-4">
           <label htmlFor="category" className="block text-sm font-medium text-black">Category:</label>
@@ -220,7 +249,7 @@ const InputProductsForm = () => {
 
         <div className="mb-4">
           <label htmlFor="subcategory" className="block text-sm font-medium text-black">Subcategory :</label>
-          <p className="text-xs text-gray-500">Please create a category, then subcategory first before selecting a subcategory.</p>
+          {/* <p className="text-xs text-gray-500">Please create a category, then subcategory first before selecting a subcategory.</p> */}
           <select
             id="subcategory"
             value={selectedSubcategory}
@@ -273,29 +302,7 @@ const InputProductsForm = () => {
           />
         </div>
 
-        <div className="mb-4">
-          <label htmlFor="costPerUnit" className="block text-sm font-medium text-black">Cost Per Unit:</label>
-          <input
-            type="number"
-            id="costPerUnit"
-            value={costPerUnit}
-            onChange={(e) => setCostPerUnit(e.target.value)}
-            required
-            className="mt-1 p-2 block w-full border rounded-md shadow-sm focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
-          />
-        </div>
-
-        <div className="mb-4">
-          <label htmlFor="storePrice" className="block text-sm font-medium text-black">Store Price:</label>
-          <input
-            type="number"
-            id="storePrice"
-            value={storePrice}
-            onChange={(e) => setStorePrice(e.target.value)}
-            required
-            className="mt-1 p-2 block w-full border rounded-md shadow-sm focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
-          />
-        </div>
+        
 
         <div className="mb-4">
           <label htmlFor="shortDescription" className="block text-sm font-medium text-black">Short Description:</label>
