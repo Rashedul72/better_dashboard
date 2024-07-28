@@ -227,7 +227,6 @@ const InputProductsForm = () => {
         </div>
 
 
-       
 
         <div className="mb-4">
           <label htmlFor="category" className="block text-sm font-medium text-black">Category:</label>

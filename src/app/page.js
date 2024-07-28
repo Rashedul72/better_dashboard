@@ -14,9 +14,6 @@ export default function Home() {
     <div>
       <div className="main-content  overflow-y-auto app">
         <Suspense fallback={<div><span className="loading loading-infinity loading-lg "></span></div>}>
-
-
-
         </Suspense>
       </div>
     </div>

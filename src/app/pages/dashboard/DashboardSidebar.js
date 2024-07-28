@@ -33,8 +33,7 @@ const DashboardSidebar = ({ onItemClick, onLogout }) => {
 
     return (
         <div
-            className={`p-4 m-4 fixed top-0 ${expanded ? 'left-0' : 'left-[0px]'} w-${expanded ? '36' : '20'} shadow-lg rounded-lg`}
-            style={{ backgroundColor: '#1F2937  ', height: 'calc(100vh - 2rem)', transition: 'width 0.3s ease-in-out, left 0.3s ease-in-out' }}
+            className={`p-4 fixed top-0 left-0 ${expanded ? 'w-54' : 'w-20'} h-screen z-50 bg-gray-800 shadow-lg transition-all duration-300`}
             onMouseEnter={() => setExpanded(true)}
             onMouseLeave={() => setExpanded(false)}
         >
@@ -44,7 +43,7 @@ const DashboardSidebar = ({ onItemClick, onLogout }) => {
                         className={getButtonClasses('overview')}
                         onClick={() => handleItemClick('overview')}
                     >
-                        {expanded ? <><FaHome className="inline-block mr-2 text-lg" /> Overview</> : <FaHome />}
+                        {expanded ? <><FaHome className="inline-block mr-2 text-lg" /> Overview</> : <FaHome className="mx-auto text-lg" />}
                     </button>
                 </li>
                 <li>
@@ -52,7 +51,7 @@ const DashboardSidebar = ({ onItemClick, onLogout }) => {
                         className={getButtonClasses('inputProductForm')}
                         onClick={() => handleItemClick('inputProductForm')}
                     >
-                        {expanded ? <><FaPlus className="inline-block mr-2 text-lg" /> Add Product</> : <FaPlus />}
+                        {expanded ? <><FaPlus className="inline-block mr-2 text-lg" /> Add Product</> : <FaPlus className="mx-auto text-lg" />}
                     </button>
                 </li>
                 <li>
@@ -60,7 +59,7 @@ const DashboardSidebar = ({ onItemClick, onLogout }) => {
                         className={getButtonClasses('products')}
                         onClick={() => handleItemClick('products')}
                     >
-                        {expanded ? <><FaBox className="inline-block mr-2 text-lg" /> Products</> : <FaBox />}
+                        {expanded ? <><FaBox className="inline-block mr-2 text-lg" /> Products</> : <FaBox className="mx-auto text-lg" />}
                     </button>
                 </li>
                 <li>
@@ -68,7 +67,7 @@ const DashboardSidebar = ({ onItemClick, onLogout }) => {
                         className={getButtonClasses('category')}
                         onClick={() => handleItemClick('category')}
                     >
-                        {expanded ? <><FaTags className="inline-block mr-2 text-lg" /> Categories</> : <FaTags />}
+                        {expanded ? <><FaTags className="inline-block mr-2 text-lg" /> Categories</> : <FaTags className="mx-auto text-lg" />}
                     </button>
                 </li>
                 <li>
@@ -76,7 +75,7 @@ const DashboardSidebar = ({ onItemClick, onLogout }) => {
                         className={getButtonClasses('subcategory')}
                         onClick={() => handleItemClick('subcategory')}
                     >
-                        {expanded ? <><FaStream className="inline-block mr-2 text-lg" /> Sub Category</> : <FaStream />}
+                        {expanded ? <><FaStream className="inline-block mr-2 text-lg" /> Sub Category</> : <FaStream className="mx-auto text-lg" />}
                     </button>
                 </li>
                 <li>
@@ -84,16 +83,15 @@ const DashboardSidebar = ({ onItemClick, onLogout }) => {
                         className={getButtonClasses('orders')}
                         onClick={() => handleItemClick('orders')}
                     >
-                        {expanded ? <><FaClipboardList className="inline-block mr-2 text-lg" /> Orders</> : <FaClipboardList />}
+                        {expanded ? <><FaClipboardList className="inline-block mr-2 text-lg" /> Orders</> : <FaClipboardList className="mx-auto text-lg" />}
                     </button>
                 </li>
-               
                 <li>
                     <button
                         className={getButtonClasses('coupons')}
                         onClick={() => handleItemClick('coupons')}
                     >
-                        {expanded ? <><FaTicketAlt className="inline-block mr-2 text-lg" /> Coupon</> : <FaTicketAlt />}
+                        {expanded ? <><FaTicketAlt className="inline-block mr-2 text-lg" /> Coupon</> : <FaTicketAlt className="mx-auto text-lg" />}
                     </button>
                 </li>
                 <li>

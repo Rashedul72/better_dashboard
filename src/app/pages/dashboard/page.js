@@ -124,27 +124,27 @@ const Dashboard = () => {
                     </div>
                 </div>
             ) : (
-                <div>
-                    {/* Left Sidebar */}
-                    <div className="fixed top-0 left-0 h-screen w-54 z-50 bg-white shadow-md">
-                        <DashboardSidebar onItemClick={handleItemClick} onLogout={handleLogout} />
-                    </div>
-
-                    {/* Right Content */}
-                    <div className="flex-1 ml-20 h-screen overflow-y-auto">
-                        <div className="mx-8 my-8">
-                            {displayComponent === 'overview' && <DashboardOverview />}
-                            {displayComponent === 'inputProductForm' && <InputProductsForm />}
-                            {displayComponent === 'products' && <Products />}
-                            {displayComponent === 'category' && <CategoryManagement />}
-                            {displayComponent === 'subcategory' && <Subcategory />}
-                            {displayComponent === 'orders' && <Orders />}
-                            {displayComponent === 'user' && <User />}
-                            {displayComponent === 'coupons' && <AddCoupon />}
-
-                        </div>
+                <div className="flex h-screen">
+                {/* Left Sidebar */}
+                <div className="fixed top-0 left-0 h-screen z-50 bg-white shadow-md lg:w-54 w-16 transition-all duration-300">
+                    <DashboardSidebar onItemClick={handleItemClick} onLogout={handleLogout} />
+                </div>
+            
+                {/* Right Content */}
+                <div className="flex-1 ml-16 lg:ml-54 h-screen overflow-y-auto transition-all duration-300">
+                    <div className="mx-4 lg:mx-8 my-4 lg:my-8">
+                        {displayComponent === 'overview' && <DashboardOverview />}
+                        {displayComponent === 'inputProductForm' && <InputProductsForm />}
+                        {displayComponent === 'products' && <Products />}
+                        {displayComponent === 'category' && <CategoryManagement />}
+                        {displayComponent === 'subcategory' && <Subcategory />}
+                        {displayComponent === 'orders' && <Orders />}
+                        {displayComponent === 'user' && <User />}
+                        {displayComponent === 'coupons' && <AddCoupon />}
                     </div>
                 </div>
+            </div>
+            
             )}
         </div>
     );

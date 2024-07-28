@@ -21,7 +21,7 @@ const DashboardOverview = () => {
         // Fetch orders
         const ordersResponse = await axios.get('https://better-server-blush.vercel.app/orders');
 
-          // Calculate total pending and delivered orders
+        // Calculate total pending and delivered orders
         let pendingCount = 0;
         let deliveredCount = 0;
 
@@ -45,28 +45,28 @@ const DashboardOverview = () => {
   }, []);
   
   return (
-    <div>
+    <div className="container mx-auto p-4">
       <div className="flex justify-center items-center mb-6">
         <h1 className="text-3xl font-bold text-center">Employee Dashboard</h1>
       </div>
       
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mt-4">
-        <div className="card p-6 shadow-lg border border-[#080808] bg-[#ffffff] text-black rounded-lg">
+        <div className="card p-6 shadow-lg border border-gray-200 bg-white text-black rounded-lg">
           <h2 className="text-2xl font-bold">Total Products</h2>
           <p className="text-4xl">{totalProducts}</p>
         </div>
     
-        <div className="card p-6 shadow-lg border border-[#030303] bg-[#ffffff] text-black rounded-lg">
+        <div className="card p-6 shadow-lg border border-gray-200 bg-white text-black rounded-lg">
           <h2 className="text-2xl font-bold">Total Categories</h2>
           <p className="text-4xl">{totalCategories}</p>
         </div>
 
-        <div className="card p-6 shadow-lg border border-[#0a0a0a] bg-[#ffffff] text-black rounded-lg">
+        <div className="card p-6 shadow-lg border border-gray-200 bg-white text-black rounded-lg">
           <h2 className="text-2xl font-bold">Orders Pending</h2>
           <p className="text-4xl">{totalPending}</p>
         </div>
 
-        <div className="card p-6 shadow-lg border border-[#0f0f0f] bg-[#ffffff] text-black rounded-lg">
+        <div className="card p-6 shadow-lg border border-gray-200 bg-white text-black rounded-lg">
           <h2 className="text-2xl font-bold">Orders Completed</h2>
           <p className="text-4xl">{totalDelivered}</p>
         </div>

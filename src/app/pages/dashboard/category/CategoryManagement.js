@@ -174,10 +174,10 @@ const handleSaveEdit = async (e) => {
   }, []);
 
   return (
-    <div className="max-w-8xl mx-auto my-8 p-8 bg-white rounded-lg shadow-lg">
+    <div className="max-w-8xl mx-auto my-8 p-8 bg-white rounded-lg">
       <h1 className="text-4xl font-bold mb-4 text-center">Category Management</h1>
-      <form onSubmit={handleAddCategory} className="max-w-sm mx-auto my-8">
-        <div className="mb-4">
+      <form onSubmit={handleAddCategory} className="max-w-sm mx-auto my-8 space-y-4">
+        <div>
           <label htmlFor="categoryName" className="block text-sm font-medium text-gray-700">Category Name:</label>
           <input
             type="text"
@@ -185,67 +185,69 @@ const handleSaveEdit = async (e) => {
             value={categoryName}
             onChange={(e) => setCategoryName(e.target.value)}
             required
-            className="mt-1 p-2 block w-full border rounded-md shadow-sm focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
+            className="input input-bordered w-full"
           />
         </div>
-        <div className="mb-4">
+        <div>
           <label htmlFor="categoryImage" className="block text-sm font-medium text-gray-700">Category Image:</label>
           <input
             type="file"
             id="categoryImage"
             onChange={handleImageChange}
-            className="mt-1 p-2 block w-full border rounded-md shadow-sm focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
+            className="file-input file-input-bordered w-full"
           />
         </div>
         {categoryImagePreview && (
-          <div className="mb-4">
+          <div>
             <img src={categoryImagePreview} alt="Category Preview" className="w-32 h-32 object-cover"/>
           </div>
         )}
         {error && <p className="text-red-500">{error}</p>}
         {successMessage && <p className="text-green-500">{successMessage}</p>}
-        <button type="submit" className="bg-indigo-600 text-white px-4 py-2 rounded-md hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 focus:ring-offset-gray-50">Add Category</button>
+        <button type="submit" className="btn btn-primary w-full">Add Category</button>
       </form>
 
-      <div className="max-w-4xl mx-auto my-8">
+      <div className="overflow-x-auto">
         {categories.length === 0 ? (
           <p>Loading categories...</p>
         ) : (
-          <table className="min-w-full bg-white border">
+          <table className="table w-full">
             <thead>
               <tr>
-                <th className="py-2 px-4 border">ID</th>
-                <th className="py-2 px-4 border">Name</th>
-                <th className="py-2 px-4 border">Image</th>
-                <th className="py-2 px-4 border">Created At</th>
-                <th className="py-2 px-4 border">Updated At</th>
-                <th className="py-2 px-4 border">Action</th>
+                <th className="p-3 text-sm text-center">Row</th>
+                <th className="p-3 text-sm text-center">ID</th>
+                <th className="p-3 text-sm text-center">Name</th>
+                <th className="p-3 text-sm text-center">Image</th>
+                <th className="p-3 text-sm text-center">Created At</th>
+                <th className="p-3 text-sm text-center">Updated At</th>
+                <th className="p-3 text-sm text-center">Action</th>
               </tr>
             </thead>
             <tbody>
-              {categories.map((category) => (
+              {categories.map((category, index) => (
                 category && category._id && (
                   <tr key={category._id}>
-                    <td className="py-2 px-4 border">{category._id}</td>
-                    <td className="py-2 px-4 border">{category.name}</td>
-                    <td className="py-2 px-4 border">
+                    <td className="p-3 text-sm text-center text-gray-800">{index + 1}</td>
+                    <td className="p-3 text-sm text-center">{category._id}</td>
+                    <td className="p-3 text-sm text-center">{category.name}</td>
+                    <td className="p-3 text-sm text-center">
                       {category.img && (
                         <Image
                           src={category.img}
                           alt={category.name}
-                          width={50}
-                          height={50}
+                          width={100}
+                          height={100}
                           className="w-12 h-12 object-cover"
                         />
                       )}
                     </td>
-                    <td className="py-2 px-4 border">{new Date(category.created_time).toLocaleString()}</td>
-                    <td className="py-2 px-4 border">
+                    <td className="p-3 text-sm text-center">{new Date(category.created_time).toLocaleString()}</td>
+                    <td className="p-3 text-sm text-center">
                       {category.updated_time ? new Date(category.updated_time).toLocaleString() : 'N/A'}
                     </td>
-                    <td className="py-2 px-4 border">
-                      <button onClick={() => openEditModal(category)} className="bg-blue-500 text-white px-2 py-1 rounded-md mr-2">Edit</button>
-                      <button onClick={() => handleDeleteCategory(category._id)} className="bg-red-500 text-white px-2 py-1 rounded-md">Delete</button>
+                    <td>
+                      <button onClick={() => openEditModal(category)} className="btn btn-info btn-sm mr-2">Edit</button>
+                      <button onClick={() => handleDeleteCategory(category._id)} className="btn btn-error btn-sm">Delete</button>
                     </td>
                   </tr>
                 )
@@ -256,19 +258,19 @@ const handleSaveEdit = async (e) => {
       </div>
 
       {modalOpen && (
-        <div className="fixed inset-0 flex items-center justify-center bg-black bg-opacity-50">
-          <div className="bg-white p-8 rounded-md shadow-md max-w-lg mx-auto">
-            <h2 className="text-2xl font-bold mb-4">Edit Category</h2>
+        <div className="modal modal-open">
+          <div className="modal-box">
+            <h2 className="text-xl font-bold mb-4">Edit Category</h2>
             <form onSubmit={handleSaveEdit} className="space-y-4">
               <div>
                 <label htmlFor="editCategoryName" className="block text-sm font-medium text-gray-700">Category Name:</label>
                 <input
                   type="text"
                   id="editCategoryName"
-                  defaultValue={editedCategory.name}
-                  required
+                  value={editedCategory.name}
                   onChange={(e) => setEditedCategory({ ...editedCategory, name: e.target.value })}
-                  className="mt-1 p-2 block w-full border rounded-md shadow-sm focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
+                  required
+                  className="input input-bordered w-full"
                 />
               </div>
               <div>
@@ -277,23 +279,25 @@ const handleSaveEdit = async (e) => {
                   type="file"
                   id="editCategoryImage"
                   onChange={handleEditedImageChange}
-                  className="mt-1 p-2 block w-full border rounded-md shadow-sm focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
+                  className="file-input file-input-bordered w-full"
                 />
               </div>
               {editedCategoryImagePreview ? (
                 <div>
-                  <img src={editedCategoryImagePreview} alt="Category Preview" className="w-32 h-32 object-cover"/>
+                  <img src={editedCategoryImagePreview} alt="Edited Category Preview" className="w-32 h-32 object-cover"/>
                 </div>
               ) : (
                 editedCategory.img && (
                   <div>
-                    <img src={editedCategory.img} alt="Category Preview" className="w-32 h-32 object-cover"/>
+                    <img src={editedCategory.img} alt="Current Category" className="w-32 h-32 object-cover"/>
                   </div>
                 )
               )}
-              <div className="flex justify-end">
-                <button type="button" onClick={closeEditModal} className="bg-gray-300 text-gray-700 px-4 py-2 rounded-md mr-2">Cancel</button>
-                <button type="submit" className="bg-indigo-600 text-white px-4 py-2 rounded-md">Save</button>
+              {error && <p className="text-red-500">{error}</p>}
+              {successMessage && <p className="text-green-500">{successMessage}</p>}
+              <div className="modal-action">
+                <button type="button" onClick={closeEditModal} className="btn">Cancel</button>
+                <button type="submit" className="btn btn-primary">Save Changes</button>
               </div>
             </form>
           </div>

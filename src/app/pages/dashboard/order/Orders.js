@@ -87,7 +87,7 @@ const Orders = () => {
       >
         <td className="border px-4 py-2">{index + 1}</td>
         <td className="border px-4 py-2">{order.timestamp}</td>
-        <td className="border px-4 py-2">{order._id}</td>
+        <td className="border px-4 py-2">{order.order_id}</td>
         <td className="border px-4 py-2">{order.name}</td>
         <td className="border px-4 py-2">{order.phone_no}</td>
         <td className="border px-4 py-2">
