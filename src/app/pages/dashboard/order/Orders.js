@@ -81,8 +81,13 @@ const Orders = () => {
         console.log('Status changed from Pending to On the way');
         const productIds = selectedOrder.products.map(product => product.product_id); // Adjust according to your product object structure
         console.log('Product IDs:', productIds);
-        await fetchStockDataAndLogSellItems(productIds, selectedOrder.products); // Fetch, update stock data, and log sell items data
+        const soldItemsData = await fetchStockDataAndLogSellItems(productIds, selectedOrder.products); // Fetch, update stock data, and log sell items data
         console.log('Stock data fetched and sell items logged');
+  
+        // Send sold items data to the server to store in the database
+        console.log('Sending sold items data to server');
+        await axios.post('http://localhost:500/solditems', soldItemsData);
+        console.log('Sold items data sent to server');
       } else {
         console.log('Status did not change from Pending to On the way');
       }
@@ -126,12 +131,13 @@ const Orders = () => {
   
         return {
           productId,
-          stock: updatedStock,
+          /* stock: updatedStock,*/
           name: product.name,
           price: product.price,
           quantity: quantityOrdered,
           costPerUnit: product.costPerUnit,
-          storePrice: product.storePrice
+          storePrice: product.storePrice,
+          createdAt: new Date() // Add timestamp
         };
       });
   
