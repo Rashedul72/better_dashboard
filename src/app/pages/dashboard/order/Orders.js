@@ -27,7 +27,7 @@ const Orders = () => {
 
   const fetchOrders = async () => {
     try {
-      const response = await axios.get('https://better-server-blush.vercel.app/orders');
+      const response = await axios.get('http://localhost:500/orders');
       const fetchedOrders = response.data;
 
       const sortByUpdatedTime = (a, b) => {
@@ -65,18 +65,86 @@ const Orders = () => {
 
   const changeStatus = async () => {
     try {
-      await axios.put(`https://better-server-blush.vercel.app/orders/${selectedOrder._id}`, {
+      console.log('changeStatus function called');
+      
+      // Update the order status
+      console.log('Updating order status for Order ID:', selectedOrder._id);
+      await axios.put(`http://localhost:500/orders/${selectedOrder._id}`, {
         newStatus,
         updated_time: new Date().toISOString()
       });
-
+  
+      console.log('Order status updated');
+  
+      // Fetch and update stock data if status changes from Pending to On the way
+      if (selectedOrder.status === 'Pending' && newStatus === 'On the way') {
+        console.log('Status changed from Pending to On the way');
+        const productIds = selectedOrder.products.map(product => product.product_id); // Adjust according to your product object structure
+        console.log('Product IDs:', productIds);
+        await fetchStockDataAndLogSellItems(productIds, selectedOrder.products); // Fetch, update stock data, and log sell items data
+        console.log('Stock data fetched and sell items logged');
+      } else {
+        console.log('Status did not change from Pending to On the way');
+      }
+  
+      // Refresh the order list
+      console.log('Refreshing order list');
       await fetchOrders();
-
       closeModal();
     } catch (err) {
       console.error('Error updating order status:', err);
     }
   };
+  
+  const fetchStockDataAndLogSellItems = async (productIds, orderProducts) => {
+    try {
+      const stockDataPromises = productIds.map(async (productId) => {
+        console.log('Fetching stock data for Product ID:', productId);
+        const response = await axios.get(`http://localhost:500/products/${productId}`);
+        const product = response.data; // Adjust according to your API response structure
+        const stock = product.stock;
+  
+        // Find the ordered quantity for this product
+        const orderedProduct = orderProducts.find(product => product.product_id === productId);
+        const quantityOrdered = orderedProduct ? orderedProduct.quantity : 0;
+  
+        // Calculate the new stock value
+        const updatedStock = stock - quantityOrdered;
+        console.log('New Stock:', updatedStock);
+  
+        // Update the stock in the database using PATCH method
+        await axios.patch(`http://localhost:500/products/${productId}`, {
+          stock: updatedStock,
+          updatedAt: new Date() // Optionally add a timestamp for when the update occurred
+        });
+  
+        console.log(`Updated Stock for Product ID ${productId}:`, updatedStock);
+  
+        // Log sell items data
+        console.log(`ID: ${productId}, Name: ${product.name}, Price: ${product.price}, Quantity: ${quantityOrdered}`);
+        console.log(`Cost Per Unit: ${product.costPerUnit}, Store Price: ${product.storePrice}`);
+  
+        return {
+          productId,
+          stock: updatedStock,
+          name: product.name,
+          price: product.price,
+          quantity: quantityOrdered,
+          costPerUnit: product.costPerUnit,
+          storePrice: product.storePrice
+        };
+      });
+  
+      const updatedStockDataAndSellItems = await Promise.all(stockDataPromises);
+      console.log('All Updated Stock Data and Sell Items:', updatedStockDataAndSellItems);
+      return updatedStockDataAndSellItems;
+    } catch (err) {
+      console.error('Error fetching and updating stock data and logging sell items:', err);
+    }
+  };
+  
+  
+
 
   const renderOrders = () => {
     return orders[activeTab].map((order, index) => (
@@ -87,7 +155,7 @@ const Orders = () => {
       >
         <td className="border px-4 py-2">{index + 1}</td>
         <td className="border px-4 py-2">{order.timestamp}</td>
-        <td className="border px-4 py-2">{order.order_id}</td>
+        <td className="border px-4 py-2">{order._id}</td>
         <td className="border px-4 py-2">{order.name}</td>
         <td className="border px-4 py-2">{order.phone_no}</td>
         <td className="border px-4 py-2">
