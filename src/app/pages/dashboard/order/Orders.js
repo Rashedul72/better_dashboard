@@ -27,7 +27,7 @@ const Orders = () => {
 
   const fetchOrders = async () => {
     try {
-      const response = await axios.get('http://localhost:500/orders');
+      const response = await axios.get('https://better-server-blush.vercel.app/orders');
       const fetchedOrders = response.data;
 
       const sortByUpdatedTime = (a, b) => {
@@ -69,7 +69,7 @@ const Orders = () => {
       
       // Update the order status
       console.log('Updating order status for Order ID:', selectedOrder._id);
-      await axios.put(`http://localhost:500/orders/${selectedOrder._id}`, {
+      await axios.put(`https://better-server-blush.vercel.app/orders/${selectedOrder._id}`, {
         newStatus,
         updated_time: new Date().toISOString()
       });
@@ -86,7 +86,7 @@ const Orders = () => {
   
         // Send sold items data to the server to store in the database
         console.log('Sending sold items data to server');
-        await axios.post('http://localhost:500/solditems', soldItemsData);
+        await axios.post('https://better-server-blush.vercel.app/solditems', soldItemsData);
         console.log('Sold items data sent to server');
       } else {
         console.log('Status did not change from Pending to On the way');
@@ -105,7 +105,7 @@ const Orders = () => {
     try {
       const stockDataPromises = productIds.map(async (productId) => {
         console.log('Fetching stock data for Product ID:', productId);
-        const response = await axios.get(`http://localhost:500/products/${productId}`);
+        const response = await axios.get(`https://better-server-blush.vercel.app/products/${productId}`);
         const product = response.data; // Adjust according to your API response structure
         const stock = product.stock;
   
@@ -118,7 +118,7 @@ const Orders = () => {
         console.log('New Stock:', updatedStock);
   
         // Update the stock in the database using PATCH method
-        await axios.patch(`http://localhost:500/products/${productId}`, {
+        await axios.patch(`https://better-server-blush.vercel.app/products/${productId}`, {
           stock: updatedStock,
           updatedAt: new Date() // Optionally add a timestamp for when the update occurred
         });
@@ -262,13 +262,14 @@ const Orders = () => {
                 <p><strong>Phone Number:</strong> {selectedOrder.phone_no}</p>
                 <p><strong>Address:</strong> {selectedOrder.address}</p>
                 <p><strong>status:</strong> {selectedOrder.status}</p>
-                <p><strong>Total Price:</strong> {selectedOrder.total_price}</p>
                 <p><strong>Products:</strong></p>
                 {selectedOrder.products.map(product => (
                   <div key={product.product_name}>
                     <p>{product.product_name} - ৳ {product.price} x {product.quantity}</p>
                   </div>
                 ))}
+                <p><strong>Delivery Charge:</strong> {selectedOrder.deliveryCharge ? `৳ ${selectedOrder.deliveryCharge}` : 'Free Delivery'}</p>
+                <p><strong>Total Price:</strong> {selectedOrder.total_price}</p>
               </div>
               <div className="flex flex-col justify-end">
                 {activeTab !== 'Delivered' && (
